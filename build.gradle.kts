@@ -1,35 +1,60 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     java
     kotlin("jvm") version "1.5.10"
-    id("org.springframework.boot") version "2.4.4"
+    id("org.springframework.boot") version "2.5.0"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("org.flywaydb.flyway") version "7.9.1"
+    kotlin("plugin.spring") version "1.5.10"
+    kotlin("plugin.jpa") version "1.5.10"
+    kotlin("plugin.allopen") version "1.5.10"
+    kotlin("kapt") version "1.5.10"
 }
 
+allOpen {
+    annotation("javax.persistence.Entity")
+    annotation("javax.persistence.Embeddable")
+    annotation("javax.persistence.MappedSuperclass")
+}
 
 group = "org.example"
 version = "1.0-SNAPSHOT"
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
-val javaVer = JavaVersion.VERSION_1_8
 
 repositories {
-    jcenter()
     mavenCentral()
 }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(module = "junit")
+        exclude(module = "mockito-core")
+    }
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("com.ninja-squad:springmockk:3.0.1")
+    implementation("org.springframework.boot:spring-boot-starter-mustache")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.data:spring-data-jpa:2.4.2")
-
+    runtimeOnly("com.h2database:h2")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
+//    runtimeOnly("org.postgresql:postgresql")
 }
 
-java {
-    sourceCompatibility = javaVer
-    targetCompatibility = javaVer
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs = listOf("-Xjsr305=strict")
+        jvmTarget = "1.8"
+    }
 }
 
-tasks.getByName<Test>("test") {
+tasks.withType<Test> {
     useJUnitPlatform()
 }

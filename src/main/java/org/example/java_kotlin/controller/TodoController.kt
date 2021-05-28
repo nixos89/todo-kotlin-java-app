@@ -1,5 +1,6 @@
-package org.example.controller
+package org.example.java_kotlin.controller
 
+import org.example.java_kotlin.model.Todo
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 class TodoController {
 
     @GetMapping("/{todoId}")
-    fun getTodo(@PathVariable("todoId") todoId: Long) {
+    fun getTodo(@PathVariable todoId: Long) {
         // TODO: implement `getTodo`
     }
 
@@ -16,10 +17,9 @@ class TodoController {
         // TODO: implement `getAllTodos`
     }
 
-    // TODO: Research how to implement Model class in Kotlin!
-//    @PostMapping
-//    fun saveTodo(TodoClass) {
-//
-//    }
+    @PostMapping
+    fun saveTodo(@RequestBody todo: Todo) {
+        // TODO: implement `saveTodo`
+    }
 
 }
