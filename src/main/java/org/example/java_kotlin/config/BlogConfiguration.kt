@@ -8,9 +8,9 @@ import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
-@Configuration
+//@Configuration
 class BlogConfiguration {
-
+/*
     @Bean
     fun databaseInitializer(userRepository: UserRepository, articleRepository: ArticleRepository) = ApplicationRunner {
         val smaldini = userRepository.save(
@@ -33,5 +33,5 @@ class BlogConfiguration {
             )
         )
 
-    }
+    }*/
 }

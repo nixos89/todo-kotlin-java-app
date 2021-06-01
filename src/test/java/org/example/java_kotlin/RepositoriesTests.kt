@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.data.repository.findByIdOrNull
 
-class RepositoriesTests @Autowired constructor(
+class RepositoriesTests/* @Autowired constructor(
     val entityManager: TestEntityManager,
     val userRepository: UserRepository,
     val articleRepository: ArticleRepository
-) {
-
+)*/ {
+/*
     @Test
     fun `When findByidOrNull then return Article`() {
         val juergen = User("springjuerge", "Juergen", "Hoeller")
@@ -34,5 +34,5 @@ class RepositoriesTests @Autowired constructor(
         entityManager.flush()
         val user = userRepository.findByLogin(juergen.login)
         assertThat(user).isEqualTo(juergen)
-    }
+    }*/
 }

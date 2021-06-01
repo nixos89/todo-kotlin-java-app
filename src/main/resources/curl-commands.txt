@@ -1,1 +1,8 @@
 curl -X POST localhost:8080/actuator/shutdown
+
+curl --location --request POST 'localhost:8080/api/todos' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "Kotlin app review",
+    "description": "Survive the Kotlin app review"
+}'
