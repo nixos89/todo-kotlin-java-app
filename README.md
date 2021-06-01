@@ -1,4 +1,4 @@
-#Kotlin-Java Demo ToDo app
+# Kotlin-Java Demo ToDo app
 
 Simple ToDo app containing RESTful API written in Java and Kotlin using:
 * Spring Data JPA
