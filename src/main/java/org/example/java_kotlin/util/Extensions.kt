@@ -9,8 +9,6 @@ fun LocalDateTime.format() = this.format(englishDateFormatter)
 
 private val daysLookup = (1..31).associate { it.toLong() to getOrdinal(it) }
 
-/* TODO: continue at `Creating your own extensions`
-    from https://spring.io/guides/tutorials/spring-boot-kotlin/ */
 private val englishDateFormatter = DateTimeFormatterBuilder()
     .appendPattern("yyyy-MM-dd")
     .appendLiteral(" ")

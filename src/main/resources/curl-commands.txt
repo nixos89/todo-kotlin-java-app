@@ -1,1 +1,14 @@
 curl -X POST localhost:8080/actuator/shutdown
+
+curl -X GET localhost:8080/api/todos
+
+curl -X GET --location "http://localhost:8080/api/article"
+
+curl -X GET --location "http://localhost:8080/api/user"
+
+curl --location --request POST 'localhost:8080/api/todos' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "Kotlin app review",
+    "description": "Survive the Kotlin app review"
+}'
