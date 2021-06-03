@@ -33,7 +33,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.junit.jupiter:junit-jupiter:5.7.0")
-//    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(module = "junit")
@@ -45,21 +46,9 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     runtimeOnly("org.postgresql:postgresql")
+    implementation( "org.flywaydb:flyway-core:7.9.1")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
-}
-
-flyway {
-    url = "jdbc:postgresql://localhost:5432/todo_db"
-    schemas = arrayOf("public")
-    baselineVersion = "0"
-    user = "postgres"
-    password = "postgres"
-    baselineOnMigrate = true
-    sqlMigrationPrefix = "V"
-    repeatableSqlMigrationPrefix = "R"
-    sqlMigrationSeparator = "__"
-    sqlMigrationSuffixes = arrayOf(".sql")
-    locations = arrayOf("classpath:db/migration")
+    implementation("org.springframework.boot:spring-boot-configuration-processor")
 }
 
 tasks.withType<KotlinCompile> {

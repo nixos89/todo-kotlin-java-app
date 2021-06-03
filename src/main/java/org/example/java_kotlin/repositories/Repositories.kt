@@ -19,7 +19,5 @@ interface UserRepository: CrudRepository<User, Long> {
 
 @Repository
 interface TodoRepository: CrudRepository<Todo, Long> {
-    fun getTodoByTodoId(todoId: Long): Todo
-    fun findAllByOrderByTitleAsc(): Iterable<Todo>
-    fun findTodoByDescriptionContains(text: String): Iterable<Todo>
+    fun findAllByOrderByTodoId(): Iterable<Todo>
 }
