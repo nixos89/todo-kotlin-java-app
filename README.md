@@ -8,7 +8,10 @@ Simple ToDo app containing REST API written in Java and Kotlin using:
 
 
 ## Steps for setting and running app:
-1. Create `todo_db` database in Postgres DB ver 12 using `postgres` both as **username** and **password**
+1. Create `todo_db` database in Postgres DB ver 12 using following credentials:
+   **username**=`postgres`<br/>
+   **password**=`system`<br/>
+   **NOTE**: Make sure they are matching `spring.datasource.username` / `spring.flyway.user` properties in `application.properties` file
 2. Enter directory of `first-java-kotlin-gradle-project` module
 3. Make sure  property `spring.flyway.enabled` is set to `true` located in `src/main/resources/application.properties`
 4. Execute `./gradlew bootRun` command
