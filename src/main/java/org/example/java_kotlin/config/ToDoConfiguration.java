@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @ConfigurationProperties("spring.flyway")
-public class TodoConfiguration {
+public class ToDoConfiguration {
 
     @Bean
     public DataSource datasource(

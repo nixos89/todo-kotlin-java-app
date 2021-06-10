@@ -1,12 +1,10 @@
 package org.example.java_kotlin.model
 
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
-import javax.persistence.SequenceGenerator
+import javax.persistence.*
 
 @Entity
-data class Todo(
+@Table(name="todo")
+data class ToDoEntity(
     @Id
     @SequenceGenerator(name="todo_generator", sequenceName = "todo_sequence", allocationSize = 1)
     @GeneratedValue(generator = "todo_generator")

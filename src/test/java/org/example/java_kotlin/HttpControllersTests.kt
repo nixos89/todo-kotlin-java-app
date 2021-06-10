@@ -2,8 +2,8 @@ package org.example.java_kotlin
 
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
-import org.example.java_kotlin.model.Article
-import org.example.java_kotlin.model.User
+import org.example.java_kotlin.model.ArticleEntity
+import org.example.java_kotlin.model.UserEntity
 import org.example.java_kotlin.repositories.ArticleRepository
 import org.example.java_kotlin.repositories.UserRepository
 import org.junit.jupiter.api.Test
@@ -26,12 +26,12 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun `List articles`() {
-        val juergen = User("springjuergen", "Juergen", "Hoeller")
-        val spring5Article = Article(
+        val juergen = UserEntity("springjuergen", "Juergen", "Hoeller")
+        val spring5Article = ArticleEntity(
             "Spring Framework 5.0 goes GA",
             "Dear Spring community ...", "Lorem ipsum", juergen
         )
-        val spring43Article = Article(
+        val spring43Article = ArticleEntity(
             "Spring Framework 4.3 goes GA",
             "Dear Spring community ...", "Lorem ipsum", juergen
         )
@@ -49,8 +49,8 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
 
     @Test
     fun `List users`() {
-        val juergen = User("springjuergen", "Juergen", "Hoeller")
-        val smaldini = User("smaldini", "Stéphane", "Maldini")
+        val juergen = UserEntity("springjuergen", "Juergen", "Hoeller")
+        val smaldini = UserEntity("smaldini", "Stéphane", "Maldini")
         every {userRepository.findAll()} returns listOf(juergen, smaldini)
         mockMvc.perform(get("/api/user/").accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk)
