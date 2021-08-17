@@ -25,10 +25,15 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.jetbrains.exposed:exposed-core:0.29.1")
+    implementation("org.jetbrains.exposed:exposed-dao:0.29.1")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.29.1")
+    implementation("org.jetbrains.exposed:exposed-java-time:0.29.1")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
