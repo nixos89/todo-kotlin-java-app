@@ -1,0 +1,28 @@
+version: "3.8"
+# https://github.com/docker-library/docs/blob/master/postgres/README.md
+# https://github.com/docker-library/docs/tree/master/openjdk
+
+services:
+  postgres-db:
+    image: postgres:12.9
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo_db
+    ports:
+      - "5440:5432"
+  app:
+    image: openjdk:8
+    depends_on:
+      - postgres-db
+    ports:
+      - "8080:8080"
+    working_dir: /first-java-kotlin-gradle-project
+    volumes:
+      - ./build/lib/sb-kotlin-java-app-0.1.jar:/first-java-kotlin-gradle-project/
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: todo_db

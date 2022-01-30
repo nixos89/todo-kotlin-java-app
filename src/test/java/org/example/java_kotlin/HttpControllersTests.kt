@@ -1,5 +1,5 @@
 package org.example.java_kotlin
-
+/*
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.example.java_kotlin.model.ArticleEntity
@@ -13,10 +13,15 @@ import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
+*/
+
 
 //https://github.com/spring-guides/tut-spring-boot-kotlin/blob/main/src/test/kotlin/com/example/blog/HttpControllersTests.kt
-@WebMvcTest
-class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
+//@WebMvcTest
+class HttpControllersTests() {
+/*
+    @Autowired
+    lateinit var mockMvc: MockMvc
 
     @MockkBean
     private lateinit var userRepository: UserRepository
@@ -58,5 +63,5 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
             .andExpect(jsonPath("\$.[0].login").value(juergen.login))
             .andExpect(jsonPath("\$.[1].login").value(smaldini.login))
     }
-
+*/
 }
