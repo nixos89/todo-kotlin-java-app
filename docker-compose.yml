@@ -1,4 +1,4 @@
-version: "3.8"
+version: "3.7"
 # https://github.com/docker-library/docs/blob/master/postgres/README.md
 # https://github.com/docker-library/docs/tree/master/openjdk
 
@@ -6,23 +6,31 @@ services:
   postgres-db:
     image: postgres:12.9
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - "postgres-data:/var/lib/postgresql/data"
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: system
       POSTGRES_DB: todo_db
+      # TODO: try mapping to different host and container ports
     ports:
       - "5440:5432"
+      - "5441:5440"
   app:
     image: openjdk:8
+    build:
+      context: .
     depends_on:
       - postgres-db
     ports:
-      - "8080:8080"
-    working_dir: /first-java-kotlin-gradle-project
+      - "8081:8080"
+      - "8082:8080"
+#    working_dir: /first-java-kotlin-gradle-project
     volumes:
-      - ./build/lib/sb-kotlin-java-app-0.1.jar:/first-java-kotlin-gradle-project/
+      - ./build/libs/:/first-java-kotlin-gradle-project/
     environment:
-      POSTGRES_HOST: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: todo_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=system
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+volumes:
+  postgres-data:
