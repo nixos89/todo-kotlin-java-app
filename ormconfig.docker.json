@@ -3,7 +3,7 @@
   "host": "postgres-db",
   "port" : 5432,
   "username": "postgres",
-  "password": "postgres",
+  "password": "root",
   "database": "todo_db",
   "synchronize": true,
   "logging": false,
