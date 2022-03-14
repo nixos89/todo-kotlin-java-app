@@ -6,7 +6,7 @@ plugins {
     kotlin("jvm") version "1.5.10"
     id("org.springframework.boot") version "2.5.0"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
-    id("org.flywaydb.flyway") version "7.9.1"
+//    id("org.flywaydb.flyway") version "7.9.1"
     kotlin("plugin.spring") version "1.5.10"
     kotlin("plugin.jpa") version "1.5.10"
     kotlin("plugin.allopen") version "1.5.10"
@@ -51,8 +51,8 @@ dependencies {
     testImplementation("com.ninja-squad:springmockk:3.0.1")
     implementation("org.springframework.boot:spring-boot-starter-mustache")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    runtimeOnly("org.postgresql:postgresql")
-    implementation( "org.flywaydb:flyway-core:7.9.1")
+    runtimeOnly("org.postgresql:postgresql:42.2.16")
+//    implementation( "org.flywaydb:flyway-core:7.9.1")
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     implementation("org.springframework.boot:spring-boot-configuration-processor")
 }

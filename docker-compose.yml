@@ -1,45 +1,48 @@
 version: "3.7"
-# https://github.com/docker-library/docs/blob/master/postgres/README.md
-# https://github.com/docker-library/docs/tree/master/openjdk
-# https://docs.docker.com/compose/startup-order/
-
-# ****************************************************************************************************************
-# TODO: Use `wait-for-it.sh` to wait for DB to start and finish its initialization so web-app can connect to it!!!
-# ****************************************************************************************************************
 
 services:
-  postgres-db:
+  postgresdb:
     image: postgres:12.9
-    container_name: postgres-db
+    container_name: postgresdb
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    #    command: psql -c "create database todo_db;" -U postgres && sudo -u postgres psql -c "ALTER ROLE postgres WITH password 'postgres'"
+    command: sudo -u postgres psql -c "ALTER ROLE postgres WITH password 'postgres'"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=todo_db
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
-      POSTGRES_DB: todo_db
-      # TODO: try mapping to different host and container ports
-    ports:
-      - "5440:5432"
-      - "5441:5440"
 
   app:
     image: openjdk:8
     depends_on:
-      - postgres-db
+      - postgresdb
+    container_name: app
+#    restart: on-failure
+    build:
+      context: .
     ports:
       - "8080:8080"
-      - "8081:8080"
-    volumes:
-      - ./build/libs:/app
-    command: wait-for-it.sh localhost:5432 -t 20 && java -jar /app/sb-kotlin-java-app-0.1.jar
-#    entrypoint:
+    entrypoint: [ "./wait-for-it.sh", "postgresdb:5432", "-t", "60", "--", "java", "-jar", "./build/libs/sb-kotlin-java-app-0.1.jar" ]
+#    environment:
+#      SPRING_APPLICATION_JSON: '{
+#          "spring.datasource.url"  : "jdbc:postgresql://postgresdb:5432/todo_db",
+#          "spring.datasource.username" : "postgres",
+#          "spring.datasource.password" : "postgres",
+#          "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+#          "spring.datasource.driverClassName" : "org.postgresql.Driver",
+#          "spring.jpa.hibernate.ddl-auto" : "update"
+#        }'
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/todo_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:5432/todo_db
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=root
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - SPRING_FLYWAY_USER=postgres
-      - SPRING_FLYWAY_PASSWORD=root
+      - SPRING_DATASOURCE_PASSWORD=postgres
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+#      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
 volumes:
   postgres-data:
