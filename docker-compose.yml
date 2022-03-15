@@ -2,14 +2,16 @@ version: "3.7"
 
 services:
   postgresdb:
-    image: postgres:12.9
+    image: postgres:12.10
     container_name: postgresdb
-    restart: unless-stopped
+    # restart: unless-stopped
     ports:
       - "5432:5432"
     #    command: psql -c "create database todo_db;" -U postgres && sudo -u postgres psql -c "ALTER ROLE postgres WITH password 'postgres'"
-    command: sudo -u postgres psql -c "ALTER ROLE postgres WITH password 'postgres'"
+    # TODO: Fix ALTER ROLE command - something is messing things up
+    command: apt-get install -y sudo && sudo -u postgres psql -c "ALTER ROLE postgres WITH password 'postgres';"
     environment:
+      - POSTGRES_HOST_AUTH_METHOD=trust
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=todo_db
@@ -21,28 +23,38 @@ services:
     depends_on:
       - postgresdb
     container_name: app
-#    restart: on-failure
+    #    restart: on-failure
     build:
       context: .
     ports:
       - "8080:8080"
-    entrypoint: [ "./wait-for-it.sh", "postgresdb:5432", "-t", "60", "--", "java", "-jar", "./build/libs/sb-kotlin-java-app-0.1.jar" ]
-#    environment:
-#      SPRING_APPLICATION_JSON: '{
-#          "spring.datasource.url"  : "jdbc:postgresql://postgresdb:5432/todo_db",
-#          "spring.datasource.username" : "postgres",
-#          "spring.datasource.password" : "postgres",
-#          "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
-#          "spring.datasource.driverClassName" : "org.postgresql.Driver",
-#          "spring.jpa.hibernate.ddl-auto" : "update"
-#        }'
+    entrypoint:
+      [
+        "./wait-for-it.sh",
+        "postgresdb:5432",
+        "-t",
+        "240",
+        "--",
+        "java",
+        "-jar",
+        "./build/libs/sb-kotlin-java-app-0.1.jar",
+      ]
+    #    environment:
+    #      SPRING_APPLICATION_JSON: '{
+    #          "spring.datasource.url"  : "jdbc:postgresql://postgresdb:5432/todo_db",
+    #          "spring.datasource.username" : "postgres",
+    #          "spring.datasource.password" : "postgres",
+    #          "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+    #          "spring.datasource.driverClassName" : "org.postgresql.Driver",
+    #          "spring.jpa.hibernate.ddl-auto" : "update"
+    #        }'
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresdb:5432/todo_db
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
-#      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+      #      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create
 volumes:
   postgres-data:
