@@ -5,7 +5,9 @@ import io.mockk.every
 import org.example.java_kotlin.model.ArticleEntity
 import org.example.java_kotlin.model.UserEntity
 import org.example.java_kotlin.repositories.ArticleRepository
+import org.example.java_kotlin.repositories.TodoRepository
 import org.example.java_kotlin.repositories.UserRepository
+import org.example.java_kotlin.service.ToDoService
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -23,6 +25,12 @@ class HttpControllersTests(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean
     private lateinit var articleRepository: ArticleRepository
+
+    @MockkBean
+    private lateinit var todoRepository: TodoRepository
+
+    @MockkBean
+    private lateinit var todoService: ToDoService
 
     @Test
     fun `List articles`() {
