@@ -1,4 +1,4 @@
-rootProject.name = "first-java-kotlin-gradle-project"
+rootProject.name = "todo-kotlin-java-app"
 
 
 
