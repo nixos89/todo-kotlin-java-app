@@ -12,7 +12,7 @@ Simple ToDo app containing REST API written in Java and Kotlin using:
    **username**=`postgres`<br/>
    **password**=`system`<br/>
    **NOTE**: Make sure they are matching `spring.datasource.username` / `spring.flyway.user` properties in `application.properties` file
-2. Enter directory of `first-java-kotlin-gradle-project` module
+2. Enter directory of `todo-kotlin-java-app` module
 3. Make sure  property `spring.flyway.enabled` is set to `true` located in `src/main/resources/application.properties`
 4. Execute `./gradlew bootRun` command
 5. Before 2nd and every other app run (i.e. before executing Step4) set `spring.flyway.enabled` property to `false` located in `src/main/resources/application.properties` 
