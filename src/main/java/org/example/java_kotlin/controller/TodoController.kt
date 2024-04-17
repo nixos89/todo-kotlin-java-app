@@ -9,6 +9,8 @@ import org.springframework.util.ObjectUtils
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
 
+// TODO: Remove all unnecessary and unused variables in this class
+
 @RestController
 @RequestMapping("/api/todos")
 class TodoController(private val todoRepository: TodoRepository, private val toDoService: ToDoService) {

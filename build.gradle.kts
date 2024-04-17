@@ -10,7 +10,7 @@ plugins {
     kotlin("plugin.spring") version "1.5.10"
     kotlin("plugin.jpa") version "1.5.10"
     kotlin("plugin.allopen") version "1.5.10"
-    kotlin("kapt") version "1.5.10"
+    kotlin("kapt") version "1.6.0"
 }
 
 allOpen {
@@ -69,10 +69,10 @@ tasks.withType<Test> {
 }
 
 application {
-    mainClass.set("org.example.java_kotlin.FirstJavaKotlinGradleApp")
+    mainClass.set("org.example.java_kotlin.TodoKotlinJavaApp")
 }
 
 tasks.bootJar {
-    archiveBaseName.set("sb-kotlin-java-app")
+    archiveBaseName.set("todo-app")
     archiveVersion.set("0.1")
 }
