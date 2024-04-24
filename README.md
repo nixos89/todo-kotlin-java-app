@@ -20,7 +20,7 @@ To properly set up and run the app perform following steps:
 
 ## 2. App containerization
 If you prefer not to have...
-#TODO: Finish this!
+#TODO: Finish this!!!!!!!!!!!!!
 
 
 ## 3. REST Endpoints
