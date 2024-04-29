@@ -1,4 +1,4 @@
-#version: "3.8"
+version: '3.8'
 # TODO Read following docs:
 # https://github.com/docker-library/docs/blob/master/postgres/README.md
 # https://github.com/docker-library/docs/tree/master/openjdk
@@ -24,7 +24,7 @@ services:
     networks:
       - app_db_net
     ports:
-      - "5440:5432"
+      - "5432:5432"
 
   app:
     #image: openjdk:8
@@ -37,14 +37,10 @@ services:
       - "8080:8080"
     volumes:
       - ./build/libs:/app
-    # TODO: modify `command` statement in order to execute
-    # command: wait-for-it.sh localhost:5432 -t 20 && java -jar /app/todo-app-0.1.jar
-    # command: 127.0.0.1:5440 -t 20 && java -jar /app/todo-app-0.1.jar
     networks:
       - app_db_net
-#    entrypoint:
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5440/todo_db
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5432/todo_db
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
@@ -55,7 +51,7 @@ services:
 networks:
   app_db_net:
     driver: bridge
-#    external: true
+    external: true
 #    name: project
 
 volumes:
