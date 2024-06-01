@@ -1,11 +1,3 @@
-# TODO Read following docs:
-# https://github.com/docker-library/docs/blob/master/postgres/README.md
-# https://github.com/docker-library/docs/tree/master/openjdk
-# https://docs.docker.com/compose/startup-order/
-
-# ****************************************************************************************************************
-# TODO: Use `wait-for-it.sh` to wait for DB to start and finish its initialization so web-app can connect to it!!!
-# ****************************************************************************************************************
 
 services:
   postgres_db:
