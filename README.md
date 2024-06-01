@@ -19,8 +19,12 @@ To properly set up and run the app perform following steps:
 5. Before 2nd and every other app run (i.e. before executing Step4) set `spring.flyway.enabled` property to `false` located in `src/main/resources/application.properties` 
 
 ## 2. App containerization
-If you prefer not to have...
-#TODO: Finish this!!!!!!!!!!!!!
+If you prefer not to have needed Postgres 12 version installed on your computer locally you can run docker-compose.
+In that use case you need to:
+1. Disable port 5432 in order for containerized Postgres image to run
+2. Create docker network named `app_db_net`.
+
+Finally, execute `docker compose up -d` command to start both application and database containers. 
 
 
 ## 3. REST Endpoints
