@@ -7,9 +7,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 
 @SpringBootApplication
 @EnableConfigurationProperties(ToDoConfiguration.class)
-public class FirstJavaKotlinGradleApp {
+public class TodoKotlinJavaApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(FirstJavaKotlinGradleApp.class, args);
+        SpringApplication.run(TodoKotlinJavaApp.class, args);
     }
 }

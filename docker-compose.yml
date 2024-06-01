@@ -1,0 +1,57 @@
+
+services:
+  postgres_db:
+    image: postgres:12.9
+    restart: always
+    container_name: postgres_db
+    hostname: postgres_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+#      - postgres-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: todo_db
+      # TODO: try mapping to different host and container ports
+    networks:
+      app_db_net:
+        aliases:
+            - postgres_db
+            - app
+    ports:
+      - "5432:5432"
+
+  app:
+    #image: openjdk:8
+    build: .
+    image: nixos89/todo_app:0.1
+    restart: on-failure
+    container_name: todo_app
+    hostname: postgres_db
+    depends_on:
+      - "postgres_db"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./build/libs:/app
+    networks:
+      app_db_net:
+        aliases:
+          - postgres_db
+          - app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_db:5432/todo_db
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_FLYWAY_USER: postgres
+      SPRING_FLYWAY_PASSWORD: postgres
+
+networks:
+  app_db_net:
+    driver: bridge
+    external: true
+
+volumes:
+  postgres-data:
